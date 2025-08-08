@@ -1,2 +1,8 @@
 # test-repo
 Refresh
+
+## 😄 Developer Humor
+
+Why do programmers prefer dark mode?
+
+Because light attracts bugs! 🐛
