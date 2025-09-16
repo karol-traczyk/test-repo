@@ -2,9 +2,9 @@
 
 ## 😄 Developer Joke of the Day
 
-**Why do programmers prefer dark mode?**
+**Why did the orange stop rolling?**
 
-Because light attracts bugs! 🐛
+It ran out of juice! 🍊
 
 ---
 
