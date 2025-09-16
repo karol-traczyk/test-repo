@@ -2,8 +2,8 @@
 
 ## Daily Programming Joke 😄
 
-**Why do programmers prefer dark mode?**  
-Because light attracts bugs! 🐛
+**Why did the orange stop rolling?**  
+It ran out of juice! 🍊
 
 ---
 *Refresh your day with some developer humor!*
