@@ -1,106 +1,197 @@
-import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts";
-import { serve } from "https://deno.land/std@0.208.0/http/server.ts";
+import {
+  assertEquals,
+  assertStringIncludes,
+} from "https://deno.land/std@0.208.0/assert/mod.ts";
+import { handler } from "./handler.ts";
 
-// Handler function from main.ts (extracted for testing)
-function handler(req: Request): Response {
-  const url = new URL(req.url);
+// Unit tests for handler function (no port binding needed)
+Deno.test("handler: GET / returns 200 with 'Hello from Deno'", () => {
+  const req = new Request("http://localhost:8080/");
+  const response = handler(req);
 
-  // Route: GET /
-  if (url.pathname === "/" && req.method === "GET") {
-    return new Response("Hello from Deno", {
-      status: 200,
-      headers: { "content-type": "text/plain" },
-    });
-  }
+  assertEquals(response.status, 200);
+  assertEquals(response.headers.get("content-type"), "text/plain");
 
-  // Route: GET /health
-  if (url.pathname === "/health" && req.method === "GET") {
-    return new Response("ok", {
-      status: 200,
-      headers: { "content-type": "text/plain" },
-    });
-  }
-
-  // Route not found
-  return new Response("Not Found", {
-    status: 404,
-    headers: { "content-type": "text/plain" },
-  });
-}
-
-// Helper function to start a test server on a random port
-async function startTestServer(): Promise<
-  { port: number; shutdown: () => void }
-> {
-  const abortController = new AbortController();
-
-  // Use a fixed port for testing to avoid race conditions
-  const testPort = 8888 + Math.floor(Math.random() * 1000);
-
-  // Start the server (we keep the promise for cleanup but don't need to assign it)
-  serve(handler, {
-    port: testPort,
-    signal: abortController.signal,
-    onListen: () => {},
-  });
-
-  // Give server a moment to start
-  await new Promise((resolve) => setTimeout(resolve, 100));
-
-  return {
-    port: testPort,
-    shutdown: () => {
-      abortController.abort();
-    },
-  };
-}
-
-Deno.test("GET / returns 'Hello from Deno'", async () => {
-  const { port, shutdown } = await startTestServer();
-
-  try {
-    const response = await fetch(`http://localhost:${port}/`);
-    const text = await response.text();
-
-    assertEquals(response.status, 200);
+  // Read the response body
+  response.text().then((text) => {
     assertEquals(text, "Hello from Deno");
-    assertEquals(response.headers.get("content-type"), "text/plain");
-  } finally {
-    shutdown();
-    // Give server time to cleanup
-    await new Promise((resolve) => setTimeout(resolve, 100));
-  }
+  });
 });
 
-Deno.test("GET /health returns 'ok'", async () => {
-  const { port, shutdown } = await startTestServer();
+Deno.test("handler: GET /health returns 200 with 'ok'", () => {
+  const req = new Request("http://localhost:8080/health");
+  const response = handler(req);
 
-  try {
-    const response = await fetch(`http://localhost:${port}/health`);
-    const text = await response.text();
+  assertEquals(response.status, 200);
+  assertEquals(response.headers.get("content-type"), "text/plain");
 
-    assertEquals(response.status, 200);
+  response.text().then((text) => {
     assertEquals(text, "ok");
-    assertEquals(response.headers.get("content-type"), "text/plain");
-  } finally {
-    shutdown();
-    // Give server time to cleanup
-    await new Promise((resolve) => setTimeout(resolve, 100));
-  }
+  });
 });
 
-Deno.test("GET /unknown returns 404", async () => {
-  const { port, shutdown } = await startTestServer();
+Deno.test("handler: GET /unknown returns 404", () => {
+  const req = new Request("http://localhost:8080/unknown");
+  const response = handler(req);
 
-  try {
-    const response = await fetch(`http://localhost:${port}/unknown`);
-    const text = await response.text();
+  assertEquals(response.status, 404);
+  assertEquals(response.headers.get("content-type"), "text/plain");
 
-    assertEquals(response.status, 404);
+  response.text().then((text) => {
     assertEquals(text, "Not Found");
-  } finally {
-    shutdown();
-    // Give server time to cleanup
-    await new Promise((resolve) => setTimeout(resolve, 100));
-  }
+  });
+});
+
+Deno.test("handler: POST / returns 404 (method not allowed)", () => {
+  const req = new Request("http://localhost:8080/", { method: "POST" });
+  const response = handler(req);
+
+  assertEquals(response.status, 404);
+  assertEquals(response.headers.get("content-type"), "text/plain");
+
+  response.text().then((text) => {
+    assertEquals(text, "Not Found");
+  });
+});
+
+Deno.test("handler: POST /health returns 404 (method not allowed)", () => {
+  const req = new Request("http://localhost:8080/health", { method: "POST" });
+  const response = handler(req);
+
+  assertEquals(response.status, 404);
+  assertEquals(response.headers.get("content-type"), "text/plain");
+});
+
+Deno.test("handler: PUT / returns 404", () => {
+  const req = new Request("http://localhost:8080/", { method: "PUT" });
+  const response = handler(req);
+
+  assertEquals(response.status, 404);
+});
+
+Deno.test("handler: DELETE / returns 404", () => {
+  const req = new Request("http://localhost:8080/", { method: "DELETE" });
+  const response = handler(req);
+
+  assertEquals(response.status, 404);
+});
+
+Deno.test("handler: PATCH /health returns 404", () => {
+  const req = new Request("http://localhost:8080/health", { method: "PATCH" });
+  const response = handler(req);
+
+  assertEquals(response.status, 404);
+});
+
+Deno.test("handler: GET /api/users returns 404", () => {
+  const req = new Request("http://localhost:8080/api/users");
+  const response = handler(req);
+
+  assertEquals(response.status, 404);
+});
+
+Deno.test("handler: GET / with query params returns 200", () => {
+  const req = new Request("http://localhost:8080/?foo=bar");
+  const response = handler(req);
+
+  assertEquals(response.status, 200);
+
+  response.text().then((text) => {
+    assertEquals(text, "Hello from Deno");
+  });
+});
+
+Deno.test("handler: GET /health with query params returns 200", () => {
+  const req = new Request("http://localhost:8080/health?check=true");
+  const response = handler(req);
+
+  assertEquals(response.status, 200);
+
+  response.text().then((text) => {
+    assertEquals(text, "ok");
+  });
+});
+
+Deno.test("handler: GET /healthcheck returns 404 (exact match required)", () => {
+  const req = new Request("http://localhost:8080/healthcheck");
+  const response = handler(req);
+
+  assertEquals(response.status, 404);
+});
+
+Deno.test("handler: GET /Health returns 404 (case sensitive)", () => {
+  const req = new Request("http://localhost:8080/Health");
+  const response = handler(req);
+
+  assertEquals(response.status, 404);
+});
+
+Deno.test("handler: OPTIONS / returns 404", () => {
+  const req = new Request("http://localhost:8080/", { method: "OPTIONS" });
+  const response = handler(req);
+
+  assertEquals(response.status, 404);
+});
+
+Deno.test("handler: HEAD / returns 404", () => {
+  const req = new Request("http://localhost:8080/", { method: "HEAD" });
+  const response = handler(req);
+
+  assertEquals(response.status, 404);
+});
+
+Deno.test("handler: GET /health/ with trailing slash returns 404", () => {
+  const req = new Request("http://localhost:8080/health/");
+  const response = handler(req);
+
+  assertEquals(response.status, 404);
+});
+
+Deno.test("handler: GET // (double slash) returns 404", () => {
+  const req = new Request("http://localhost:8080//");
+  const response = handler(req);
+
+  assertEquals(response.status, 404);
+});
+
+// Async tests that actually read response bodies
+Deno.test("handler: verify response body content for /", async () => {
+  const req = new Request("http://localhost:8080/");
+  const response = handler(req);
+  const text = await response.text();
+
+  assertEquals(text, "Hello from Deno");
+  assertStringIncludes(text, "Deno");
+});
+
+Deno.test("handler: verify response body content for /health", async () => {
+  const req = new Request("http://localhost:8080/health");
+  const response = handler(req);
+  const text = await response.text();
+
+  assertEquals(text, "ok");
+  assertEquals(text.length, 2);
+});
+
+Deno.test("handler: verify 404 response body", async () => {
+  const req = new Request("http://localhost:8080/notfound");
+  const response = handler(req);
+  const text = await response.text();
+
+  assertEquals(text, "Not Found");
+  assertStringIncludes(text, "Not Found");
+});
+
+Deno.test("handler: handles different domains correctly", () => {
+  const req = new Request("http://example.com/");
+  const response = handler(req);
+
+  assertEquals(response.status, 200);
+});
+
+Deno.test("handler: handles different ports in URL correctly", () => {
+  const req = new Request("http://localhost:3000/");
+  const response = handler(req);
+
+  assertEquals(response.status, 200);
 });

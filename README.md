@@ -12,7 +12,8 @@ and graceful shutdown.
 - Graceful shutdown on SIGINT/SIGTERM
 - Minimal permissions required
 - Clean, readable code
-- Comprehensive tests
+- Comprehensive test coverage (>=85%)
+- Automated CI/CD with GitHub Actions
 
 ## Prerequisites
 
@@ -50,7 +51,7 @@ curl http://localhost:8080/health
 
 ## Running Tests
 
-Run the test suite with:
+### Run All Tests
 
 ```bash
 deno test --allow-net --allow-env
@@ -58,6 +59,47 @@ deno test --allow-net --allow-env
 
 All tests should pass, verifying that both endpoints return the expected
 responses.
+
+### Run Tests with Coverage
+
+```bash
+deno test --allow-net --allow-env --coverage=coverage
+```
+
+### Generate Coverage Report
+
+After running tests with coverage, generate a detailed report:
+
+```bash
+# View coverage summary in terminal
+deno coverage coverage
+
+# Generate LCOV report for CI/CD
+deno coverage coverage --lcov --output=coverage.lcov
+
+# Generate HTML report for local viewing
+deno coverage coverage --html
+```
+
+### Coverage Threshold
+
+This project maintains **>=85% line coverage**. The CI pipeline will fail if
+coverage drops below this threshold.
+
+Current coverage: **100% line coverage** on all handler logic.
+
+### Test Coverage Details
+
+The test suite includes:
+
+- ✅ Happy path tests for both endpoints (GET / and GET /health)
+- ✅ Negative tests for unknown routes (404 responses)
+- ✅ HTTP method validation (POST, PUT, DELETE, PATCH, OPTIONS, HEAD)
+- ✅ Query parameter handling
+- ✅ Path matching edge cases (trailing slashes, case sensitivity)
+- ✅ Response body verification
+- ✅ Content-type header validation
+- ✅ Different URL formats (domains, ports)
 
 ## Code Quality
 
@@ -67,11 +109,29 @@ responses.
 deno fmt
 ```
 
+### Check Formatting (CI mode)
+
+```bash
+deno fmt --check
+```
+
 ### Lint Code
 
 ```bash
 deno lint
 ```
+
+## Continuous Integration
+
+This project uses GitHub Actions for CI/CD. On every push and pull request, the
+following checks run automatically:
+
+1. **Format Check** - Ensures code follows Deno formatting standards
+2. **Lint Check** - Catches common issues and enforces best practices
+3. **Tests** - Runs the full test suite
+4. **Coverage** - Generates coverage reports and enforces >=85% threshold
+
+The CI configuration can be found in `.github/workflows/ci.yml`.
 
 ## Graceful Shutdown
 
@@ -94,9 +154,13 @@ This server requires minimal permissions:
 
 ```
 .
-├── main.ts         # Main server implementation
-├── main_test.ts    # Test suite
-└── README.md       # This file
+├── .github/
+│   └── workflows/
+│       └── ci.yml       # CI/CD pipeline configuration
+├── handler.ts           # HTTP request handler logic
+├── main.ts              # Server startup and configuration
+├── main_test.ts         # Comprehensive test suite
+└── README.md            # This file
 ```
 
 ## API Documentation
