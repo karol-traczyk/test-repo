@@ -14,3 +14,6 @@ This repository now includes a minimal Express-based HTTP server to support the 
 - `npm run dev` to run in development mode with automatic reloads via `nodemon`
 
 Both scripts log the active port on startup and log each incoming request. Unexpected errors are logged and return a generic 500 JSON response.
+
+### Running the tests
+- `npm test` executes the Jest + Supertest suite covering the `/`, `/health`, and error-handling responses.
