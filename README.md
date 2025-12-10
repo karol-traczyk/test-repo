@@ -25,3 +25,5 @@ The codebase hums in gentle harmony
 Branches stretch like paths beneath the trees  
 Pull requests arrive with cups of tea  
 Merging friendship, tests, and easy breeze
+
+We build calmly together, letting every commit feel welcome.
