@@ -1,0 +1,48 @@
+# Application Configuration
+# Region settings can be overridden by environment variables
+
+# Default region configuration
+region:
+  # Primary region for all services
+  # Can be overridden with AWS_REGION environment variable
+  primary: us-east-1
+  
+  # Optional: Backup region for disaster recovery
+  # backup: us-west-2
+  
+  # Region-specific settings
+  settings:
+    us-east-1:
+      name: "US East (N. Virginia)"
+      availability_zones: 6
+      enabled: true
+    us-west-2:
+      name: "US West (Oregon)"
+      availability_zones: 4
+      enabled: true
+    eu-west-1:
+      name: "EU West (Ireland)"
+      availability_zones: 3
+      enabled: true
+    eu-central-1:
+      name: "EU Central (Frankfurt)"
+      availability_zones: 3
+      enabled: true
+    ap-southeast-1:
+      name: "Asia Pacific (Singapore)"
+      availability_zones: 3
+      enabled: true
+    ap-northeast-1:
+      name: "Asia Pacific (Tokyo)"
+      availability_zones: 4
+      enabled: true
+
+# Application settings
+application:
+  name: "test-repo"
+  environment: development
+  
+# Feature flags
+features:
+  multi_region: false
+  auto_failover: false

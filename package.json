@@ -1,0 +1,20 @@
+{
+  "name": "test-repo",
+  "version": "1.0.0",
+  "description": "A test repository with configurable region settings",
+  "main": "config_loader.js",
+  "scripts": {
+    "start": "node config_loader.js",
+    "test": "echo \"No tests specified yet\" && exit 0"
+  },
+  "keywords": [
+    "config",
+    "region",
+    "aws"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
