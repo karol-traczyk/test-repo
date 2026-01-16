@@ -13,6 +13,8 @@ Looking for the perfect gift? Whether you're shopping on a budget or ready to sp
 - **Quality Notebook & Pen Set** (~$20) – Premium writing supplies for journaling or note-taking
 - **Cozy Throw Blanket** (~$25) – Soft fleece or knit blanket for movie nights
 - **Board Game or Puzzle** (~$20–$30) – Classic entertainment for game nights with friends
+- **Reusable Water Bottle** (~$22) – Eco-friendly hydration with style and durability
+- **Aromatherapy Candle Set** (~$28) – Relaxing scents to create a calming atmosphere at home
 
 ### Mid-Range ($30–$100)
 
@@ -21,6 +23,8 @@ Looking for the perfect gift? Whether you're shopping on a budget or ready to sp
 - **Portable Bluetooth Speaker** (~$45) – Take the music anywhere, indoors or outdoors
 - **Quality Chef's Knife** (~$70) – Essential kitchen tool that makes cooking more enjoyable
 - **Subscription Box (3-month)** (~$75) – Coffee, books, snacks, or hobby supplies delivered monthly
+- **Indoor Smart Herb Garden** (~$85) – Grow fresh herbs year-round with automated lighting and watering
+- **Leather Wallet or Cardholder** (~$60) – Timeless accessory with quality craftsmanship
 
 ### Premium ($100+)
 
@@ -29,3 +33,5 @@ Looking for the perfect gift? Whether you're shopping on a budget or ready to sp
 - **High-Quality Backpack** (~$120) – Durable travel or everyday carry with thoughtful design
 - **Professional Massage or Spa Package** (~$150) – Relaxation and self-care experience
 - **Premium Headphones** (~$200–$350) – Noise-canceling audio for immersive listening
+- **Espresso Machine or Coffee Maker** (~$300–$400) – Barista-quality coffee at home every morning
+- **Premium Luggage Set** (~$250–$350) – Durable, stylish travel companions built to last
