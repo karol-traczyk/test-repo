@@ -1,0 +1,23 @@
+aws:
+  region: eu-west-2
+  default_region: eu-west-2
+
+# Regional Resources
+resources:
+  # Example S3 bucket configuration for eu-west-2
+  s3:
+    location_constraint: eu-west-2
+  
+  # Example EC2 configuration for eu-west-2
+  ec2:
+    region: eu-west-2
+    # Note: AMI IDs are region-specific and should be updated for eu-west-2
+    # Example: Ubuntu 22.04 LTS in eu-west-2: ami-0b9932f4918a00c4f
+  
+  # Example RDS configuration for eu-west-2
+  rds:
+    region: eu-west-2
+    availability_zones:
+      - eu-west-2a
+      - eu-west-2b
+      - eu-west-2c

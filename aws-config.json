@@ -1,0 +1,10 @@
+{
+  "region": "eu-west-2",
+  "defaultRegion": "eu-west-2",
+  "regionalEndpoints": {
+    "s3": "s3.eu-west-2.amazonaws.com",
+    "dynamodb": "dynamodb.eu-west-2.amazonaws.com",
+    "lambda": "lambda.eu-west-2.amazonaws.com",
+    "ec2": "ec2.eu-west-2.amazonaws.com"
+  }
+}
