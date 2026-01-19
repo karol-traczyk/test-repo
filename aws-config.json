@@ -1,0 +1,10 @@
+{
+  "aws": {
+    "region": "eu-west-2",
+    "profile": "default"
+  },
+  "service": {
+    "name": "test-repo",
+    "environment": "production"
+  }
+}
