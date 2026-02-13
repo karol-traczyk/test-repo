@@ -18,3 +18,21 @@ So here's to those who code with care,
 Who craft solutions everywhere,  
 In every commit, in every line,  
 A touch of art, a grand design.
+
+## Haiku
+
+**Code compiles at last**  
+Errors fade into silence  
+Green tests bring me peace
+
+**Functions pure and clean**  
+Variables dance in their scope  
+Logic flows like streams
+
+**Git commits align**  
+Branches merge without conflict  
+Deploy to the cloud
+
+**Keyboard clicks echo**  
+Algorithms come alive  
+Solutions emerge
