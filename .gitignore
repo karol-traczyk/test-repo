@@ -1,0 +1,37 @@
+# Environment variables (contains secrets)
+.env
+
+# AWS credentials
+.aws/
+aws-credentials.json
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# CDK
+cdk.out/
+.cdk.staging/
+
+# Node modules
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
